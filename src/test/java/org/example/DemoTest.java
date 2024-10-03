@@ -19,7 +19,6 @@ import java.io.IOException;
 import java.time.Duration;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
-import java.util.function.Function;
 
 public class DemoTest implements ITestListener {
 
@@ -41,7 +40,10 @@ public class DemoTest implements ITestListener {
         Actions actions = new Actions(driver);
         WebElement hove = driver.findElement(By.id("mousehover"));
         actions.moveToElement(hove).perform();
+        JavascriptExecutor js = (JavascriptExecutor)driver;
+        //js.executeScript("return document.readystate").equals("complete");
         WebDriverWait webDriverWait = new WebDriverWait(driver,10);
+        webDriverWait.until(driver->js.executeScript("return document.readystate").equals("complete"));
          webDriverWait.until(ExpectedConditions.visibilityOf(hove));
 
         Wait<WebDriver> fluentWaitWait = new FluentWait<>(driver)
@@ -49,18 +51,8 @@ public class DemoTest implements ITestListener {
                         .pollingEvery(Duration.ofSeconds(2))
                                 .ignoring(NoSuchElementException.class);
 
-        WebElement ele = fluentWaitWait.until(new Function<WebDriver, WebElement>() {
-            @Override
-            public WebElement apply(WebDriver webDriver) {
-                return driver.findElement(By.xpath(""));
-            }
-        });
-
+        WebElement ele = fluentWaitWait.until(ExpectedConditions.elementToBeClickable(By.xpath("")));
         ele.click();
-
-
-
-
 
         driver.manage().timeouts().implicitlyWait(2000,TimeUnit.SECONDS);
         List<WebElement> list = driver.findElements(By.xpath("//div[@class='mouse-hover-content']//a"));

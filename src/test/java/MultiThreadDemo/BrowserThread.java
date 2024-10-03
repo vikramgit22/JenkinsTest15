@@ -17,7 +17,8 @@ class BrowserThread implements Runnable {
     @Override
     public void run() {
         // Set up the WebDriver
-        System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        //System.setProperty("webdriver.chrome.driver", "path/to/chromedriver");
+        System.setProperty("webdriver.chrome.driver","C:\\Users\\Admin\\Downloads\\Driver\\chromedriver.exe");
         WebDriver driver = new ChromeDriver();
 
         try {

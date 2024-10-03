@@ -39,11 +39,6 @@ public class CastingDemo {
         Dog d = (Dog) animal;
         d.fetch();
 
-        Dog dog = new Dog();
-        Animal a = dog;
-        Dog d1 = (Dog) a;
-        d1.fetch();
-
         int i=100;
         double o = (double) i;
         System.out.println(o);
